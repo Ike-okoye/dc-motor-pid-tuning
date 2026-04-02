@@ -1,5 +1,10 @@
 # DC Motor PID Controller Tuning and Comparative Analysis
 
+![MATLAB](https://img.shields.io/badge/MATLAB-Control%20System%20Toolbox-orange)
+![Optimization](https://img.shields.io/badge/Optimization-Genetic%20Algorithm-blue)
+![License](https://img.shields.io/badge/License-MIT-green)
+![Status](https://img.shields.io/badge/Project-Complete-success)
+![Research](https://img.shields.io/badge/Field-Control%20Systems-blueviolet)
 <p align="center">
 Comparative study of classical and optimization-based PID tuning methods for DC motor speed control.
 </p>
@@ -22,9 +27,187 @@ The controllers are evaluated using:
 * Control energy consumption
 
 The objective is to determine which tuning method provides the **most stable, accurate, and energy-efficient control response**.
+---
+
+# Requirements
+
+The project was developed and tested using **MATLAB**.
+
+Required toolboxes:
+
+* Control System Toolbox
+* Global Optimization Toolbox (for Genetic Algorithm)
+
+Recommended MATLAB version:
+
+```
+MATLAB R2022b or newer
+```
 
 ---
 
+# Reproducing the Experiments
+
+The repository contains MATLAB scripts that reproduce the controller design and simulation results presented in this project.
+
+## 1. Clone the Repository
+
+```bash
+git clone https://github.com/Ike-okoye/dc-motor-pid-tuning.git
+cd dc-motor-pid-tuning
+```
+
+---
+
+## 2. Open the Project in MATLAB
+
+Open MATLAB and navigate to the project folder:
+
+```
+DC_motor_PID_tuning
+```
+
+---
+
+## 3. Run the Tuning Scripts
+
+The controller parameters can be reproduced using the following scripts.
+
+### Genetic Algorithm Tuning
+
+Run:
+
+```
+Scripts/DC_tuned_GA_script.m
+```
+
+This script:
+
+* Initializes the GA optimization
+* Searches for optimal PID parameters
+* Minimizes the ITAE error index
+
+---
+
+### Ziegler–Nichols Tuning
+
+Run:
+
+```
+Scripts/DC_Tuned_ZN_Script.m
+```
+
+This script computes the PID parameters based on the **ultimate gain and oscillation period**.
+
+---
+
+### Cohen–Coon Tuning
+
+Run:
+
+```
+Scripts/DC_Tuned_Coon_Script.m
+```
+
+This script calculates the PID gains using **process reaction curve parameters**.
+
+---
+
+## 4. Run the Controller Comparison
+
+To reproduce all figures and performance tables, run:
+
+```
+Scripts/DC_Motor_Tuning_comparison.m
+```
+
+This script:
+
+* Simulates the closed-loop DC motor system
+* Computes performance metrics
+* Generates all comparison plots
+
+Generated plots include:
+
+* Step response comparison
+* Control effort comparison
+* Error performance indices
+* Radar performance chart
+
+---
+
+# Output Figures
+
+Running the comparison script will generate the following figures:
+
+```
+figures/
+├── tuning_step_response_comparison.png
+├── tuning_control_effort_plot.png
+├── tuning_error_performance_index.png
+└── tuning_normalized_controller_performance_radar_chart.png
+```
+
+These plots illustrate the performance differences between the three tuning methods.
+
+---
+
+# Simulink Model
+
+The repository also includes a **Simulink implementation** of the DC motor system:
+
+```
+DCMotorModel.slx
+```
+
+This model contains:
+
+* Armature dynamics
+* Mechanical load dynamics
+* Back EMF feedback
+* PID controller implementation
+
+The model can be used to visualize the system structure and verify simulation results.
+
+---
+
+# Reproducibility Notes
+
+* All results are deterministic except the **Genetic Algorithm optimization**, which may produce slightly different parameters depending on random initialization.
+* The provided GA parameters represent one optimized solution found during experimentation.
+
+---
+
+# Suggested Workflow
+
+```
+1. Run GA tuning script
+2. Run ZN tuning script
+3. Run Cohen–Coon tuning script
+4. Run comparison script
+5. Analyze generated figures
+```
+
+---
+
+# Expected Results
+
+The expected outcome is:
+
+| Controller        | Performance                      |
+| ----------------- | -------------------------------- |
+| Genetic Algorithm | Fast response, minimal overshoot |
+| Ziegler–Nichols   | Aggressive oscillatory response  |
+| Cohen–Coon        | Moderate performance             |
+
+The GA-based controller should provide the **best overall performance**.
+
+---
+
+# Contribution
+
+Contributions and suggestions for improving the controller design or optimization process are welcome.
+---
 # System Modeling
 
 A DC motor converts electrical energy into rotational mechanical motion.
