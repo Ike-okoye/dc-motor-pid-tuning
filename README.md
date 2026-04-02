@@ -50,21 +50,21 @@ Where:
 
 ---
 
-### Mechanical dynamics
+### Mechanical Dynamics
 
-[
-J\frac{d\omega(t)}{dt} + b\omega(t) = K_t i(t) - T_L
-]
+<p align="center">
+<img src="https://latex.codecogs.com/png.image?\dpi{150}J\frac{d\omega(t)}{dt}+b\omega(t)=K_t i(t)-T_L">
+</p>
 
 Where:
 
-| Parameter | Description          |
-| --------- | -------------------- |
-| (J)       | Rotor inertia        |
-| (b)       | Friction coefficient |
-| (K_t)     | Torque constant      |
-| (T_L)     | Load torque          |
-
+| Symbol | Description |
+|------|-------------|
+| J | Rotor inertia |
+| b | Viscous friction coefficient |
+| ω(t) | Angular velocity |
+| Kt | Motor torque constant |
+| TL | Load torque |
 ---
 
 # Transfer Function Model
