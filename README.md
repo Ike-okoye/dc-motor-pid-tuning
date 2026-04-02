@@ -1,9 +1,7 @@
----
-
 # DC Motor PID Controller Tuning and Comparative Analysis
 
 <p align="center">
-  Comparative study of classical and optimization-based PID tuning methods for DC motor speed control.
+Comparative study of classical and optimization-based PID tuning methods for DC motor speed control.
 </p>
 
 ---
@@ -12,96 +10,99 @@
 
 This project presents a **comparative analysis of three PID controller tuning techniques** applied to a DC motor system:
 
-* **Genetic Algorithm (GA) Optimization**
-* **Ziegler–Nichols (ZN) Classical Tuning**
-* **Cohen–Coon (CC) Classical Tuning**
+* Genetic Algorithm (GA)
+* Ziegler–Nichols (ZN)
+* Cohen–Coon (CC)
 
 The controllers are evaluated using:
 
 * Time-domain response characteristics
 * Error performance indices
 * Control effort analysis
-* Energy consumption
+* Control energy consumption
 
-The goal is to determine which tuning method produces the **most efficient and stable control performance**.
+The objective is to determine which tuning method provides the **most stable, accurate, and energy-efficient control response**.
 
 ---
 
 # System Modeling
 
 A DC motor converts electrical energy into rotational mechanical motion.
-The system dynamics can be described using electrical and mechanical equations.
+Its behavior is governed by **electrical and mechanical dynamics**.
 
-### Electrical dynamics
+---
 
-[
-V_a(t) = L\frac{di(t)}{dt} + Ri(t) + K_b\omega(t)
-]
+# Electrical Dynamics
+
+<p align="center">
+<img src="https://latex.codecogs.com/png.image?V_a(t)%3DL%5Cfrac%7Bdi(t)%7D%7Bdt%7D%2BRi(t)%2BK_b%5Comega(t)" />
+</p>
 
 Where:
 
 | Parameter | Description         |
 | --------- | ------------------- |
-| (V_a)     | Armature voltage    |
-| (i)       | Armature current    |
-| (R)       | Armature resistance |
-| (L)       | Armature inductance |
-| (K_b)     | Back EMF constant   |
+| Va        | Armature voltage    |
+| i         | Armature current    |
+| R         | Armature resistance |
+| L         | Armature inductance |
+| Kb        | Back EMF constant   |
 
 ---
 
-### Mechanical Dynamics
+# Mechanical Dynamics
 
 <p align="center">
-<img src="https://latex.codecogs.com/png.image?\dpi{150}J\frac{d\omega(t)}{dt}+b\omega(t)=K_t i(t)-T_L">
+<img src="https://latex.codecogs.com/png.image?J%5Cfrac%7Bd%5Comega(t)%7D%7Bdt%7D%2Bb%5Comega(t)%3DK_ti(t)-T_L" />
 </p>
 
 Where:
 
-| Symbol | Description |
-|------|-------------|
-| J | Rotor inertia |
-| b | Viscous friction coefficient |
-| ω(t) | Angular velocity |
-| Kt | Motor torque constant |
-| TL | Load torque |
+| Parameter | Description          |
+| --------- | -------------------- |
+| J         | Rotor inertia        |
+| b         | Friction coefficient |
+| Kt        | Torque constant      |
+| TL        | Load torque          |
+| ω         | Angular velocity     |
+
 ---
 
-# Transfer Function Model
+# DC Motor Transfer Function
 
-Combining the electrical and mechanical equations produces the DC motor transfer function:
+Combining the electrical and mechanical equations produces the transfer function:
 
-[
-G(s) = \frac{44.99}{s^3 + 44.98s^2 + 78.962s}
-]
+<p align="center">
+<img src="https://latex.codecogs.com/png.image?G(s)%3D%5Cfrac%7B44.99%7D%7Bs%5E3%2B44.98s%5E2%2B78.962s%7D" />
+</p>
 
 Where:
 
 | Variable | Description             |
 | -------- | ----------------------- |
-| (G(s))   | Motor transfer function |
+| G(s)     | Motor transfer function |
 | Input    | Armature voltage        |
-| Output   | Angular velocity        |
+| Output   | Angular speed           |
 
 ---
 
 # PID Controller
 
-A **Proportional–Integral–Derivative (PID)** controller is used to regulate the motor speed.
+The system is controlled using a **Proportional–Integral–Derivative (PID)** controller.
 
-[
-C(s) = K_p + \frac{K_i}{s} + K_d s
-]
+<p align="center">
+<img src="https://latex.codecogs.com/png.image?C(s)%3DK_p%2B%5Cfrac%7BK_i%7D%7Bs%7D%2BK_ds" />
+</p>
 
 Where:
 
 | Parameter | Function                      |
 | --------- | ----------------------------- |
-| (K_p)     | Reduces rise time             |
-| (K_i)     | Eliminates steady-state error |
-| (K_d)     | Improves system damping       |
+| Kp        | Reduces rise time             |
+| Ki        | Eliminates steady-state error |
+| Kd        | Improves damping              |
 
-The tuning process determines the optimal values of (K_p), (K_i), and (K_d).
+The tuning process determines optimal values of these parameters.
 
 ---
 
@@ -109,65 +110,78 @@ The tuning process determines the optimal values of (K_p), (K_i), and (K_d).
 
 ## Genetic Algorithm (GA)
 
-Genetic Algorithms are **evolutionary optimization methods** inspired by natural selection.
+Genetic Algorithms are **evolutionary optimization techniques** inspired by natural selection.
 
-The algorithm evolves controller parameters by minimizing the **Integral of Time-weighted Absolute Error (ITAE)**:
+Controller parameters are optimized by minimizing the **Integral of Time-weighted Absolute Error (ITAE)**.
 
-[
-ITAE = \int_0^T t |e(t)| dt
-]
+<p align="center">
+<img src="https://latex.codecogs.com/png.image?ITAE%3D%5Cint_0%5ETt%7Ce(t)%7Cdt" />
+</p>
+
+Where:
+
+| Symbol | Description     |
+| ------ | --------------- |
+| e(t)   | Tracking error  |
+| T      | Simulation time |
 
 Advantages of GA tuning:
 
-* Global optimization capability
-* No need for plant simplification
-* Superior performance for complex systems
+* Global search capability
+* Handles nonlinear optimization problems
+* Produces high-performance controllers
 
 ---
 
-## Ziegler–Nichols Tuning
+## Ziegler–Nichols Method
 
-The Ziegler–Nichols method determines controller parameters based on the **ultimate gain (K_u)** and **oscillation period (P_u)**.
+The Ziegler–Nichols method uses the **ultimate gain Ku** and **oscillation period Pu**.
 
-[
-K_p = 0.6K_u
-]
+<p align="center">
+<img src="https://latex.codecogs.com/png.image?K_p%3D0.6K_u" />
+</p>
 
-[
-T_i = \frac{P_u}{2}
-]
+<p align="center">
+<img src="https://latex.codecogs.com/png.image?T_i%3D%5Cfrac%7BP_u%7D%7B2%7D" />
+</p>
 
-[
-T_d = \frac{P_u}{8}
-]
+<p align="center">
+<img src="https://latex.codecogs.com/png.image?T_d%3D%5Cfrac%7BP_u%7D%7B8%7D" />
+</p>
 
-Although easy to implement, the method often produces **aggressive controllers with high overshoot**.
+This method is simple but often produces **aggressive controllers with high overshoot**.
 
 ---
 
-## Cohen–Coon Tuning
+## Cohen–Coon Method
 
-The Cohen–Coon method uses **process reaction curve parameters**:
+The Cohen–Coon method is based on **process reaction curve parameters**.
 
-[
-K_p = \frac{\tau/L + 0.333}{K}
-]
+<p align="center">
+<img src="https://latex.codecogs.com/png.image?K_p%3D%5Cfrac%7B%5Ctau%2FL%2B0.333%7D%7BK%7D" />
+</p>
 
-[
-T_i = \tau \left(\frac{30 + 3(L/\tau)}{9 + 20(L/\tau)}\right)
-]
+<p align="center">
+<img src="https://latex.codecogs.com/png.image?T_i%3D%5Ctau%5Cleft(%5Cfrac%7B30%2B3(L/%5Ctau)%7D%7B9%2B20(L/%5Ctau)%7D%5Cright)" />
+</p>
 
-[
-T_d = \tau \left(\frac{L/\tau}{11 + 2(L/\tau)}\right)
-]
+<p align="center">
+<img src="https://latex.codecogs.com/png.image?T_d%3D%5Ctau%5Cleft(%5Cfrac%7BL/%5Ctau%7D%7B11%2B2(L/%5Ctau)%7D%5Cright)" />
+</p>
 
-This method provides improved damping compared to ZN but still relies on **plant approximation**.
+Where:
+
+| Symbol | Description   |
+| ------ | ------------- |
+| K      | Process gain  |
+| L      | Time delay    |
+| τ      | Time constant |
 
 ---
 
 # Controller Parameters
 
-| Tuning Method     | (K_p)   | (K_i)    | (K_d)  |
+| Tuning Method     | Kp      | Ki       | Kd     |
 | ----------------- | ------- | -------- | ------ |
 | Genetic Algorithm | 24.799  | 0.000    | 15.005 |
 | Ziegler–Nichols   | 47.400  | 135.4286 | 4.1475 |
@@ -177,37 +191,35 @@ This method provides improved damping compared to ZN but still relies on **plant
 
 # Performance Metrics
 
-The controllers are evaluated using standard time-domain metrics.
-
-| Metric        | Description                           |
-| ------------- | ------------------------------------- |
-| Rise Time     | Time to reach 90% of final value      |
-| Settling Time | Time to remain within 2% tolerance    |
-| Overshoot     | Maximum peak relative to steady state |
+| Metric        | Description                             |
+| ------------- | --------------------------------------- |
+| Rise Time     | Time to reach 90% of final value        |
+| Settling Time | Time to remain within 2% tolerance band |
+| Overshoot     | Maximum peak deviation                  |
 
 ---
 
 # Error Performance Indices
 
-## Integral of Squared Error
+### Integral of Squared Error
 
-[
-ISE = \int_0^T e(t)^2 dt
-]
+<p align="center">
+<img src="https://latex.codecogs.com/png.image?ISE%3D%5Cint_0%5ETe(t)%5E2dt" />
+</p>
 
-## Integral of Absolute Error
+### Integral of Absolute Error
 
-[
-IAE = \int_0^T |e(t)| dt
-]
+<p align="center">
+<img src="https://latex.codecogs.com/png.image?IAE%3D%5Cint_0%5ET%7Ce(t)%7Cdt" />
+</p>
 
-## Integral of Time Weighted Absolute Error
+### Integral of Time-Weighted Absolute Error
 
-[
-ITAE = \int_0^T t |e(t)| dt
-]
+<p align="center">
+<img src="https://latex.codecogs.com/png.image?ITAE%3D%5Cint_0%5ETt%7Ce(t)%7Cdt" />
+</p>
 
-ITAE penalizes **long-duration errors**, making it suitable for optimization-based tuning.
+These indices measure **tracking accuracy and controller effectiveness**.
 
 ---
 
@@ -215,17 +227,15 @@ ITAE penalizes **long-duration errors**, making it suitable for optimization-bas
 
 The control signal applied to the system is:
 
-[
-u(t) = r(t) - y(t)
-]
+<p align="center">
+<img src="https://latex.codecogs.com/png.image?u(t)%3Dr(t)-y(t)" />
+</p>
 
-Control energy is computed as:
+Control energy is defined as:
 
-[
-J_u = \int_0^T u(t)^2 dt
-]
-
-This metric indicates how much **energy the controller requires**.
+<p align="center">
+<img src="https://latex.codecogs.com/png.image?J_u%3D%5Cint_0%5ETu(t)%5E2dt" />
+</p>
 
 ---
 
@@ -240,7 +250,7 @@ This metric indicates how much **energy the controller requires**.
 | Controller        | Behaviour                            |
 | ----------------- | ------------------------------------ |
 | Genetic Algorithm | Fast response with minimal overshoot |
-| Ziegler–Nichols   | Oscillatory behaviour                |
+| Ziegler–Nichols   | Oscillatory response                 |
 | Cohen–Coon        | Moderate oscillations                |
 
 ---
@@ -251,7 +261,7 @@ This metric indicates how much **energy the controller requires**.
 <img src="figures/tuning_control_effort_plot.png" width="750">
 </p>
 
-The GA controller requires **less control effort**, indicating efficient actuation.
+The GA controller requires **significantly lower control effort**.
 
 ---
 
@@ -261,7 +271,7 @@ The GA controller requires **less control effort**, indicating efficient actuati
 <img src="figures/tuning_error_performance_index.png" width="750">
 </p>
 
-GA tuning produces the **lowest tracking error values**.
+GA tuning produces **the lowest error indices**.
 
 ---
 
@@ -271,17 +281,17 @@ GA tuning produces the **lowest tracking error values**.
 <img src="figures/tuning_normalized_controller_performance_radar_chart.png" width="750">
 </p>
 
-The radar chart summarizes normalized controller performance across all metrics.
+This chart summarizes the **normalized controller performance across multiple metrics**.
 
 ---
 
 # Quantitative Performance Comparison
 
-| Controller        | Rise Time (s) | Settling Time (s) | Overshoot (%) | ISE    | IAE    | ITAE   | Control Energy |
-| ----------------- | ------------- | ----------------- | ------------- | ------ | ------ | ------ | -------------- |
-| Genetic Algorithm | 0.10          | 0.16              | 0.00          | 0.31   | 0.24   | 0.05   | 0.12           |
-| Ziegler–Nichols   | 0.14          | 3.90              | 66.49         | 8.10e7 | 1.52e4 | 2.34e4 | 4.21           |
-| Cohen–Coon        | 0.23          | 5.88              | 65.74         | 4.51e3 | 3.21e2 | 8.12e2 | 1.73           |
+| Controller        | Rise Time | Settling Time | Overshoot | ISE    | IAE    | ITAE   | Control Energy |
+| ----------------- | --------- | ------------- | --------- | ------ | ------ | ------ | -------------- |
+| Genetic Algorithm | 0.10 s    | 0.16 s        | 0 %       | 0.31   | 0.24   | 0.05   | 0.12           |
+| Ziegler–Nichols   | 0.14 s    | 3.90 s        | 66.49 %   | 8.10e7 | 1.52e4 | 2.34e4 | 4.21           |
+| Cohen–Coon        | 0.23 s    | 5.88 s        | 65.74 %   | 4.51e3 | 3.21e2 | 8.12e2 | 1.73           |
 
 ---
 
@@ -320,16 +330,8 @@ DC_motor_PID_tuning
 
 The comparative analysis shows that:
 
-* **Genetic Algorithm tuning produces the best overall controller performance.**
-* Classical tuning methods produce higher overshoot and longer settling times.
-* Optimization-based methods are better suited for **higher-order dynamic systems**.
+* **Genetic Algorithm tuning provides the best controller performance.**
+* Classical tuning techniques produce larger overshoot and slower settling.
+* Optimization-based tuning methods are better suited for **higher-order control systems**.
 
-The GA-based controller achieves **superior tracking accuracy, stability, and energy efficiency**.
-
----
-
-# License
-
-This project is released under the MIT License.
-
----
+The GA-based controller achieves **superior accuracy, stability, and energy efficiency**.
