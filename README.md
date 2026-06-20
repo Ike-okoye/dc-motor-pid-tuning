@@ -194,7 +194,7 @@ The model can be used to visualize the system structure and verify simulation re
 
 The expected outcome is:
 
-| Controller        | Performance                      |
+| Tuning method     | Performance                      |
 | ----------------- | -------------------------------- |
 | Genetic Algorithm | Fast response, minimal overshoot |
 | Ziegler–Nichols   | Aggressive oscillatory response  |
@@ -211,7 +211,7 @@ Contributions and suggestions for improving the controller design or optimizatio
 # System Modeling
 
 A DC motor converts electrical energy into rotational mechanical motion.
-Its behavior is governed by **electrical and mechanical dynamics**.
+** electrical and mechanical dynamics govern its behavior**.
 
 ---
 
